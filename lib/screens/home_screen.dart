@@ -27,14 +27,15 @@ class HomeScreen extends StatelessWidget {
     final upcomingEvents = sampleEvents.where((e) => e.date.isAfter(now)).take(3).toList();
 
     return Scaffold(
-      backgroundColor: AppTheme.lightGray,
+      backgroundColor: AppTheme.scaffoldBackground,
       body: CustomScrollView(slivers: [
         SliverAppBar(
-          expandedHeight: 240,
+          expandedHeight: 280,
           pinned: true,
-          backgroundColor: AppTheme.white,
-          foregroundColor: AppTheme.darkGray,
-          elevation: 0.5,
+          backgroundColor: AppTheme.primaryBlue,
+          foregroundColor: AppTheme.white,
+          elevation: 0,
+          automaticallyImplyLeading: false,
           actions: [
             Stack(clipBehavior: Clip.none, children: [
               IconButton(icon: const Icon(Icons.notifications_outlined), onPressed: () {}),
@@ -55,40 +56,73 @@ class HomeScreen extends StatelessWidget {
           ],
           flexibleSpace: FlexibleSpaceBar(
             background: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [AppTheme.white, AppTheme.lightBlue],
+                  colors: [AppTheme.primaryBlue, AppTheme.accentBlue],
                 ),
               ),
               child: Stack(
                 children: [
                   Positioned(
-                    right: -10,
-                    top: 16,
+                    right: -30,
+                    top: 12,
                     child: Opacity(
                       opacity: 0.08,
-                      child: Image.asset('assets/images/PUCE-IBARRA-1.png', width: 260),
+                      child: Image.asset('assets/images/PUCE-IBARRA-1.png', width: 300),
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.fromLTRB(20, 72, 20, 16),
-                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisAlignment: MainAxisAlignment.end, children: [
-                      Row(children: [
-                        Image.asset('assets/images/PUCE-IBARRA-1.png', width: 120),
-                        const SizedBox(width: 12),
-                        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: const [
-                          Text('Institucional PUCE Ibarra', style: TextStyle(fontSize: 13, color: AppTheme.primaryBlue, fontWeight: FontWeight.w700)),
-                          SizedBox(height: 4),
-                          Text('Información académica y acceso rápido', style: TextStyle(fontSize: 11, color: AppTheme.mediumGray)),
-                        ])),
-                      ]),
-                      const SizedBox(height: 18),
-                      const Text('Resumen académico de hoy', style: TextStyle(fontSize: 14, color: AppTheme.mediumGray, letterSpacing: 0.2)),
-                      const SizedBox(height: 6),
-                      Text('Hoy es $todayName', style: const TextStyle(fontSize: 18, color: AppTheme.darkGray, fontWeight: FontWeight.w700)),
-                    ]),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 32, 20, 24),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: const [
+                                  Text('PUCE Ibarra', style: TextStyle(fontSize: 13, color: AppTheme.white, letterSpacing: 0.7, fontWeight: FontWeight.w600)),
+                                  SizedBox(height: 6),
+                                  Text('Centro académico formal', style: TextStyle(fontSize: 26, color: AppTheme.white, fontWeight: FontWeight.w800, height: 1.1)),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              width: 80,
+                              height: 80,
+                              decoration: BoxDecoration(color: AppTheme.white, borderRadius: BorderRadius.circular(20), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 18, offset: const Offset(0, 10))]),
+                              child: Padding(
+                                padding: const EdgeInsets.all(12),
+                                child: Image.asset('assets/images/PUCE-IBARRA-1.png', fit: BoxFit.contain),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 22),
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+                          decoration: BoxDecoration(color: AppTheme.surfaceBlue, borderRadius: BorderRadius.circular(14)),
+                          child: Row(
+                            children: [
+                              const Icon(Icons.calendar_today, color: AppTheme.white, size: 16),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Hoy es $todayName · agenda y avisos listos para revisar',
+                                  style: const TextStyle(color: AppTheme.white, fontSize: 13, height: 1.4),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        const SizedBox(height: 18),
+                        Text('Funciones rápidas', style: Theme.of(context).textTheme.titleLarge?.copyWith(color: AppTheme.white)),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -97,64 +131,73 @@ class HomeScreen extends StatelessWidget {
         ),
         SliverToBoxAdapter(
           child: Padding(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.fromLTRB(20, 16, 20, 0),
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(children: [
-                _buildQuickItem(Icons.map, 'Mapa', AppTheme.primaryBlue),
-                const SizedBox(width: 8),
-                _buildQuickItem(Icons.calendar_month, 'Agenda', AppTheme.accentBlue),
-                const SizedBox(width: 8),
-                _buildQuickItem(Icons.schedule, 'Horario', AppTheme.mediumGray),
-                const SizedBox(width: 8),
-                _buildQuickItem(Icons.notifications_active, 'Avisos', AppTheme.danger),
-              ]),
+              Wrap(
+                spacing: 12,
+                runSpacing: 12,
+                children: [
+                  _buildQuickItem(Icons.map, 'Mapa', AppTheme.primaryBlue),
+                  _buildQuickItem(Icons.calendar_month, 'Agenda', AppTheme.accentBlue),
+                  _buildQuickItem(Icons.schedule, 'Horario', AppTheme.darkGray),
+                  _buildQuickItem(Icons.notifications_active, 'Avisos', AppTheme.danger),
+                ],
+              ),
               const SizedBox(height: 22),
-              _sectionHeader('Enlaces oficiales', 'PUCESI web', Icons.link),
+              _sectionHeader('Enlaces oficiales', 'Acceso directo a la web', Icons.link),
               const SizedBox(height: 12),
               Column(
                 children: officialLinks.map((link) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: InkWell(
-                      borderRadius: BorderRadius.circular(16),
-                      onTap: () => _openLink(context, link.url),
-                      child: Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          color: AppTheme.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(color: AppTheme.lightGray),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(Icons.open_in_new, color: AppTheme.primaryBlue, size: 20),
-                            const SizedBox(width: 12),
-                            Expanded(
-                              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                                Text(link.label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: AppTheme.darkGray)),
-                                const SizedBox(height: 4),
-                                Text(link.subtitle, style: const TextStyle(fontSize: 12, color: AppTheme.mediumGray)),
-                              ]),
-                            ),
-                            const Icon(Icons.chevron_right, color: AppTheme.mediumGray),
-                          ],
+                    child: Material(
+                      color: AppTheme.white,
+                      borderRadius: BorderRadius.circular(18),
+                      elevation: 1,
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(18),
+                        onTap: () => _openLink(context, link.url),
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(18),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 42,
+                                height: 42,
+                                decoration: BoxDecoration(color: AppTheme.surfaceGray, borderRadius: BorderRadius.circular(14)),
+                                child: Icon(Icons.open_in_new, color: AppTheme.primaryBlue, size: 20),
+                              ),
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(link.label, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: AppTheme.darkGray)),
+                                    const SizedBox(height: 4),
+                                    Text(link.subtitle, style: const TextStyle(fontSize: 12, color: AppTheme.mediumGray, height: 1.4)),
+                                  ],
+                                ),
+                              ),
+                              const Icon(Icons.arrow_forward_ios, color: AppTheme.mediumGray, size: 16),
+                            ],
+                          ),
                         ),
                       ),
                     ),
                   );
                 }).toList(),
               ),
-              const SizedBox(height: 18),
+              const SizedBox(height: 20),
               _sectionHeader('Clases de hoy', todayName, Icons.schedule),
               const SizedBox(height: 12),
               if (todayClasses.isEmpty)
                 Container(
                   width: double.infinity,
                   padding: const EdgeInsets.all(24),
-                  decoration: BoxDecoration(color: AppTheme.white, borderRadius: BorderRadius.circular(16), border: Border.all(color: AppTheme.lightGray)),
+                  decoration: BoxDecoration(color: AppTheme.white, borderRadius: BorderRadius.circular(18), boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.04), blurRadius: 18, offset: const Offset(0, 10))]),
                   child: const Column(children: [
-                    Icon(Icons.free_breakfast, size: 34, color: AppTheme.mediumGray),
+                    Icon(Icons.free_breakfast, size: 32, color: AppTheme.mediumGray),
                     SizedBox(height: 10),
                     Text('No tienes clases hoy.', style: TextStyle(color: AppTheme.mediumGray, fontSize: 14)),
                   ]),

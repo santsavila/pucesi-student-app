@@ -8,6 +8,9 @@ class AppTheme {
   static const Color darkGray = Color(0xFF1F2937);
   static const Color mediumGray = Color(0xFF4B5563);
   static const Color lightGray = Color(0xFFF7FAFC);
+  static const Color surfaceGray = Color(0xFFF3F6FB);
+  static const Color surfaceBlue = Color(0xFFDEE7F5);
+  static const Color scaffoldBackground = Color(0xFFF3F6F9);
   static const Color white = Color(0xFFFFFFFF);
   static const Color success = Color(0xFF10B981);
   static const Color warning = Color(0xFFF59E0B);
@@ -45,26 +48,28 @@ class AppTheme {
         cardTheme: CardThemeData(
           color: white,
           elevation: 0,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
         ),
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ElevatedButton.styleFrom(
             backgroundColor: primaryBlue,
             foregroundColor: white,
             elevation: 0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             textStyle: const TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
           ),
         ),
         textTheme: const TextTheme(
           displaySmall: TextStyle(fontSize: 32, fontWeight: FontWeight.w800, color: darkGray, letterSpacing: 0.15),
+          headlineMedium: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: darkGray, height: 1.1),
           titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: darkGray),
-          bodyLarge: TextStyle(fontSize: 15, height: 1.5, color: darkGray),
+          bodyLarge: TextStyle(fontSize: 15, height: 1.6, color: darkGray),
           bodyMedium: TextStyle(fontSize: 14, color: mediumGray),
+          bodySmall: TextStyle(fontSize: 13, color: mediumGray, height: 1.4),
           labelLarge: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: darkGray),
         ),
-        dividerColor: mediumGray,
+        dividerColor: const Color(0xFFD7E0EC),
         fontFamily: 'Roboto',
       );
 }
